@@ -10,7 +10,9 @@
 
 void *p_address(void *p)
 {
-	return (&p);
+	int i;
+	p = &i;
+	return (p);
 }
 
 /**
@@ -50,7 +52,7 @@ int _printf(const char *format, ...)
 		else if (format[countr + 1] == 'p')
 		{
 			z = p_address(va_arg(plist, char *));
-			zpitfha(z);
+			zputcha(z);
 			countr++;
 		}
 		(return_value += 1);

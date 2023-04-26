@@ -52,10 +52,10 @@ int dig_cunt(int digit)
 /**
  * _printf- field width for non-custom conversion speci
  * @format: parameter
- * Return: nothing
+ * Return: value
  */
 
-void _printf(const char *format, ...)
+int _printf(const char *format, ...)
 {
 	int g;
 	unsigned int dig;
@@ -72,7 +72,7 @@ void _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			field_width = 0;
-			for (*format = 0; *format <= 9; format++)
+			for (; *format > 0 && *format <= 9; format++)
 			{
 				field_width = field_width * 10 + (*format - '0');
 			}
