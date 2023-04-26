@@ -1,7 +1,17 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdio.h>
-#include <unistd.h>
+
+/**
+ * p_address- function to handle conversion specifier p
+ * @p: parameter
+ * Return: address
+ */
+
+void *p_address(void *p)
+{
+	return (&p);
+}
 
 /**
  * zputcha- prints characters
@@ -15,7 +25,7 @@ int zputcha(char a)
 }
 
 /**
- * _printf- produces output according to a format: d, i
+ * _printf- produces output according to a format
  * @format: parameter
  * Return: a value
  */
@@ -24,6 +34,7 @@ int _printf(const char *format, ...)
 {
 	unsigned int countr = 0;
 	int return_value = 0;
+	int *z;
 
 	va_list plist;
 
@@ -36,18 +47,12 @@ int _printf(const char *format, ...)
 			zputcha(format[countr]);
 		}
 
-		else if (format[countr + 1] == 'd')
+		else if (format[countr + 1] == 'p')
 		{
-			zputcha(va_arg(plist, int));
+			z = p_address(va_arg(plist, char *));
+			zpitfha(z);
 			countr++;
 		}
-
-		else if (format[countr + 1] == 'i')
-		{
-			zputcha(va_arg(plist, int));
-			countr++;
-		}
-
 		(return_value += 1);
 	}
 	return (return_value);

@@ -15,7 +15,33 @@ int zputcha(char a)
 }
 
 /**
- * _printf- produces output according to a format: d, i
+ * zput- prints strings
+ * @str: parameter
+ * Return: a value
+ */
+
+int zput(char *str)
+{
+	int g;
+	int return_value = 0;
+
+	if (str == (NULL))
+	{
+		return (NULL);
+	}
+	else
+	{
+		for (g = 0; str[g] != '\0'; g++)
+		{
+			zputcha(str[g]);
+			(return_value += 1);
+		}
+	}
+	return (return_value);
+}
+
+/**
+ * _printf- produces output according to a format
  * @format: parameter
  * Return: a value
  */
@@ -36,18 +62,22 @@ int _printf(const char *format, ...)
 			zputcha(format[countr]);
 		}
 
-		else if (format[countr + 1] == 'd')
+		else if (format[countr + 1] == 'c')
 		{
 			zputcha(va_arg(plist, int));
 			countr++;
 		}
 
-		else if (format[countr + 1] == 'i')
+		else if (format[countr + 1] == 's')
 		{
-			zputcha(va_arg(plist, int));
+			(return_value = zput(va_arg(plist, char *)));
 			countr++;
 		}
 
+		else if (format[countr + 1] == '%')
+		{
+			zputcha('%');
+		}
 		(return_value += 1);
 	}
 	return (return_value);

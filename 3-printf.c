@@ -15,7 +15,7 @@ int zputcha(char a)
 }
 
 /**
- * _printf- produces output according to a format: d, i
+ * _printf- produces output according to a format: u, o, x, X
  * @format: parameter
  * Return: a value
  */
@@ -24,6 +24,7 @@ int _printf(const char *format, ...)
 {
 	unsigned int countr = 0;
 	int return_value = 0;
+	unsigned int n;
 
 	va_list plist;
 
@@ -36,15 +37,17 @@ int _printf(const char *format, ...)
 			zputcha(format[countr]);
 		}
 
-		else if (format[countr + 1] == 'd')
+		else if (format[countr + 1] == 'u' || format[countr + 1] == 'o')
 		{
-			zputcha(va_arg(plist, int));
+			n = va_arg(plist, int);
+			zputcha(n);
 			countr++;
 		}
 
-		else if (format[countr + 1] == 'i')
+		else if (format[countr + 1] == 'x' || format[countr + 1] == 'X')
 		{
-			zputcha(va_arg(plist, int));
+			n = va_arg(plist, int);
+			zputcha(n);
 			countr++;
 		}
 

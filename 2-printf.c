@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 /**
- * zputcha- prints characters
+ * zputcha- prints a character
  * @a: parameter
  * Return: a value
  */
@@ -15,7 +15,31 @@ int zputcha(char a)
 }
 
 /**
- * _printf- produces output according to a format: d, i
+ * bin_print- converts numbers from decimal to binary and prints
+ * @number: parameter
+ * Return: nothing
+ */
+
+void bin_print(int number)
+{
+	int u;
+
+	for (u = 6; u >= 0; u++)
+	{
+		if ((number >> u) & 1)
+		{
+			zputcha(49);
+		}
+
+		else
+		{
+			zputcha(48);
+		}
+	}
+}
+
+/**
+ * _printf- prints unsigned int argument and converts to binary
  * @format: parameter
  * Return: a value
  */
@@ -25,9 +49,9 @@ int _printf(const char *format, ...)
 	unsigned int countr = 0;
 	int return_value = 0;
 
-	va_list plist;
+	va_list blist;
 
-	va_start(plist, format);
+	va_start(blist, format);
 
 	for (; format[countr] != '\0'; countr++)
 	{
@@ -35,19 +59,10 @@ int _printf(const char *format, ...)
 		{
 			zputcha(format[countr]);
 		}
-
-		else if (format[countr + 1] == 'd')
+		else if (format[countr + 1] == 'b')
 		{
-			zputcha(va_arg(plist, int));
-			countr++;
+			bin_print(va_arg(blist, int));
 		}
-
-		else if (format[countr + 1] == 'i')
-		{
-			zputcha(va_arg(plist, int));
-			countr++;
-		}
-
 		(return_value += 1);
 	}
 	return (return_value);
