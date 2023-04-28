@@ -1,44 +1,5 @@
 #include "main.h"
 #include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
-
-/**
- * zputcha- prints characters
- * @a: parameter
- * Return: a value
- */
-
-int zputcha(char a)
-{
-	return (write(1, &a, 1));
-}
-
-/**
- * zput- prints strings
- * @str: parameter
- * Return: a value
- */
-
-int zput(char *str)
-{
-	int g;
-	int return_value = 0;
-
-	if (str == (NULL))
-	{
-		return (NULL);
-	}
-	else
-	{
-		for (g = 0; str[g] != '\0'; g++)
-		{
-			zputcha(str[g]);
-			(return_value += 1);
-		}
-	}
-	return (return_value);
-}
 
 /**
  * _printf- produces output according to a format
@@ -48,6 +9,7 @@ int zput(char *str)
 
 int _printf(const char *format, ...)
 {
+	unsigned int n;
 	unsigned int countr = 0;
 	int return_value = 0;
 
@@ -77,6 +39,38 @@ int _printf(const char *format, ...)
 		else if (format[countr + 1] == '%')
 		{
 			zputcha('%');
+		}
+
+		else if (format[countr + 1] == 'd')
+		{
+			zputcha(va_arg(plist, int));
+			countr++;
+		}
+
+		else if (format[countr + 1] == 'i')
+		{
+			zputcha(va_arg(plist, int));
+			countr++;
+		}
+
+		else if (format[countr + 1] == 'b')
+		{
+			zbin_print(va_arg(plist, int));
+			
+		}
+
+		else if (format[countr + 1] == 'u' || format[countr + 1] == 'o')
+		{
+			n = va_arg(plist, int);
+			zputcha(n);
+			countr++;
+		}
+
+		else if (format[countr + 1] == 'x' || format[countr + 1] == 'X')
+		{
+			n = va_arg(plist, int);
+			zputcha(n);
+			countr++;
 		}
 		(return_value += 1);
 	}
